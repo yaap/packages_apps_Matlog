@@ -31,7 +31,7 @@
         android:layout_toLeftOf="@android:id/button1"
         android:layout_toStartOf="@android:id/button1"
         android:ellipsize="marquee"
-        tools:text="ALKJFOWIEUKCXJ.txt"
+        tools:text="ALKJFOWIEUKCXJ.log"
         android:singleLine="true"
         android:textAppearance="@android:style/TextAppearance.Material.Menu"/>
 

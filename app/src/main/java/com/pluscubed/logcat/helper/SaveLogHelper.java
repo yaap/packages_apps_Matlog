@@ -38,8 +38,8 @@ import java.util.zip.ZipOutputStream;
 public class SaveLogHelper {
 
     public static final String TEMP_DEVICE_INFO_FILENAME = "device_info.txt";
-    public static final String TEMP_LOG_FILENAME = "logcat.txt";
-    public static final String TEMP_DMESG_FILENAME = "dmesg.txt";
+    public static final String TEMP_LOG_FILENAME = "logcat.log";
+    public static final String TEMP_DMESG_FILENAME = "dmesg.log";
     private static final String TEMP_ZIP_FILENAME = "logs";
     private static final int BUFFER = 0x1000; // 4K
     private static final String LEGACY_SAVED_LOGS_DIR = "catlog_saved_logs";
@@ -146,7 +146,7 @@ public class SaveLogHelper {
             @Override
             public boolean accept(File dir, String name) {
                 if (textFilesOnly) {
-                    return name.endsWith(".txt");
+                    return name.endsWith(".log");
                 }
                 return true;
             }

@@ -74,7 +74,7 @@ public class DialogHelper {
                 || (filenameAsString = filename.toString()).contains("/")
                 || filenameAsString.contains(":")
                 || filenameAsString.contains(" ")
-                || !filenameAsString.endsWith(".txt");
+                || !filenameAsString.endsWith(".log");
 
     }
 
@@ -175,7 +175,7 @@ public class DialogHelper {
         String filename = createLogFilename();
         editText.setText(filename);
 
-        // highlight everything but the .txt at the end
+        // highlight everything but the .log at the end
         editText.setSelection(0, filename.length() - 4);
         return v;
     }
@@ -195,7 +195,7 @@ public class DialogHelper {
         String minute = twoDigitDecimalFormat.format(calendar.get(Calendar.MINUTE));
         String second = twoDigitDecimalFormat.format(calendar.get(Calendar.SECOND));
 
-        return year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + ".txt";
+        return year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + ".log";
     }
 
 }
