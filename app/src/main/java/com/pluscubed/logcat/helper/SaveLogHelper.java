@@ -43,7 +43,7 @@ public class SaveLogHelper {
     private static final String TEMP_ZIP_FILENAME = "logs";
     private static final int BUFFER = 0x1000; // 4K
     private static final String LEGACY_SAVED_LOGS_DIR = "catlog_saved_logs";
-    private static final String CATLOG_DIR = "matlog";
+    private static final String CATLOG_DIR = "Documents/matlog";
     private static final String SAVED_LOGS_DIR = "saved_logs";
     private static final String TMP_DIR = "tmp";
 
