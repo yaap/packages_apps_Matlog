@@ -114,7 +114,6 @@
     <string name="search">Procurar</string>
     <string name="scrubber">Omitir informações confidenciais</string>
     <string name="scrubber_summary">Omitir informações confidenciais como URLs da web, números de telefone ou e-mails</string>
-    <string name="text_include_dmesg">Incluir log do kernel</string>
     <string name="save_log_zip">Salvar zip</string>
     <string name="share_log">Compartilhar</string>
     <string name="channel_name">Gravar notificação </string>

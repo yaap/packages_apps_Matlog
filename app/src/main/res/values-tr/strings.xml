@@ -113,7 +113,6 @@
     <string name="search">Ara</string>
     <string name="scrubber">Hassas bilgileri çıkar</string>
     <string name="scrubber_summary">Web url\'leri, telefon numaraları veya e-postalar gibi hassas bilgileri çıkarın</string>
-    <string name="text_include_dmesg">Kernel günlüğünü dâhil et</string>
     <string name="save_log_zip">Zip olarak kaydet</string>
     <string name="share_log">Paylaş</string>
     <string name="channel_name">Kayıt bildirimi</string>

@@ -60,7 +60,6 @@ import com.pluscubed.logcat.db.CatlogDBHelper;
 import com.pluscubed.logcat.db.FilterItem;
 import com.pluscubed.logcat.helper.BuildHelper;
 import com.pluscubed.logcat.helper.DialogHelper;
-import com.pluscubed.logcat.helper.DmesgHelper;
 import com.pluscubed.logcat.helper.PreferenceHelper;
 import com.pluscubed.logcat.helper.SaveLogHelper;
 import com.pluscubed.logcat.helper.ServiceHelper;
@@ -1165,18 +1164,6 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
             }
         });
 
-        final CheckBox includeDmesgCheckBox = (CheckBox) includeDeviceInfoView.findViewById(R.id.checkbox_dmesg);
-
-        // allow user to choose whether or not to include device info in report, use preferences for persistence
-        includeDmesgCheckBox.setChecked(PreferenceHelper.getIncludeDmesgPreference(this));
-        includeDmesgCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferenceHelper.setIncludeDmesgPreference(LogcatActivity.this, isChecked);
-            }
-        });
-
         new AlertDialog.Builder(LogcatActivity.this)
                 .setTitle(R.string.share_log)
                 .setView(includeDeviceInfoView)
@@ -1184,7 +1171,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sendLogToTargetApp(includeDeviceInfoCheckBox.isChecked(), includeDmesgCheckBox.isChecked());
+                        sendLogToTargetApp(includeDeviceInfoCheckBox.isChecked());
                     }
                 }).show();
     }
@@ -1213,18 +1200,6 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
             }
         });
 
-        final CheckBox includeDmesgCheckBox = (CheckBox) includeDeviceInfoView.findViewById(R.id.checkbox_dmesg);
-
-        // allow user to choose whether or not to include device info in report, use preferences for persistence
-        includeDmesgCheckBox.setChecked(PreferenceHelper.getIncludeDmesgPreference(this));
-        includeDmesgCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferenceHelper.setIncludeDmesgPreference(LogcatActivity.this, isChecked);
-            }
-        });
-
         new AlertDialog.Builder(LogcatActivity.this)
                 .setTitle(R.string.save_log_zip)
                 .setView(includeDeviceInfoView)
@@ -1232,12 +1207,12 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveLogToTargetApp(includeDeviceInfoCheckBox.isChecked(), includeDmesgCheckBox.isChecked());
+                        saveLogToTargetApp(includeDeviceInfoCheckBox.isChecked());
                     }
                 }).show();
     }
 
-    protected void sendLogToTargetApp(final boolean includeDeviceInfo, final boolean includeDmesg) {
+    protected void sendLogToTargetApp(final boolean includeDeviceInfo) {
 
         if (!SaveLogHelper.checkSdCard(this)) {
             return;
@@ -1252,7 +1227,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                 ui.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (mCurrentlyOpenLog == null || includeDeviceInfo || includeDmesg) {
+                        if (mCurrentlyOpenLog == null || includeDeviceInfo) {
                             mDialog = ProgressDialog.show(LogcatActivity.this,
                                     getResources().getString(R.string.dialog_please_wait),
                                     getResources().getString(R.string.dialog_compiling_log),
@@ -1260,7 +1235,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                         }
                     }
                 });
-                final SendLogDetails sendLogDetails = getSendLogDetails(includeDeviceInfo, includeDmesg);
+                final SendLogDetails sendLogDetails = getSendLogDetails(includeDeviceInfo);
                 ui.post(new Runnable() {
                     @Override
                     public void run() {
@@ -1276,7 +1251,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
 
     }
 
-    protected void saveLogToTargetApp(final boolean includeDeviceInfo, final boolean includeDmesg) {
+    protected void saveLogToTargetApp(final boolean includeDeviceInfo) {
 
         if (!SaveLogHelper.checkSdCard(this)) {
             return;
@@ -1291,7 +1266,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                 ui.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (mCurrentlyOpenLog == null || includeDeviceInfo || includeDmesg) {
+                        if (mCurrentlyOpenLog == null || includeDeviceInfo) {
                             mDialog = ProgressDialog.show(LogcatActivity.this,
                                     getResources().getString(R.string.dialog_please_wait),
                                     getResources().getString(R.string.dialog_compiling_log),
@@ -1299,7 +1274,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
                         }
                     }
                 });
-                final File zipFile = saveLogAsZip(includeDeviceInfo, includeDmesg);
+                final File zipFile = saveLogAsZip(includeDeviceInfo);
                 ui.post(new Runnable() {
                     @Override
                     public void run() {
@@ -1315,7 +1290,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
     }
 
     @WorkerThread
-    private SendLogDetails getSendLogDetails(boolean includeDeviceInfo, boolean includeDmesg) {
+    private SendLogDetails getSendLogDetails(boolean includeDeviceInfo) {
         SendLogDetails sendLogDetails = new SendLogDetails();
         StringBuilder body = new StringBuilder();
 
@@ -1337,12 +1312,6 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
             File tempFile = SaveLogHelper.saveTemporaryFile(this,
                     SaveLogHelper.TEMP_DEVICE_INFO_FILENAME, deviceInfo, null);
             files.add(tempFile);
-        }
-
-        if (includeDmesg) {
-            File tempDmsgFile = SaveLogHelper.saveTemporaryFile(this,
-                    SaveLogHelper.TEMP_DMESG_FILENAME, null, DmesgHelper.getDmsg());
-            files.add(tempDmsgFile);
         }
 
         sendLogDetails.setBody(body.toString());
@@ -1369,7 +1338,7 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
         return sendLogDetails;
     }
 
-    private File saveLogAsZip(boolean includeDeviceInfo, boolean includeDmesg) {
+    private File saveLogAsZip(boolean includeDeviceInfo) {
         List<File> files = new ArrayList<>();
         SaveLogHelper.cleanTemp();
 
@@ -1388,12 +1357,6 @@ public class LogcatActivity extends AppCompatActivity implements FilterListener,
             File tempFile = SaveLogHelper.saveTemporaryFile(this,
                     SaveLogHelper.TEMP_DEVICE_INFO_FILENAME, deviceInfo, null);
             files.add(tempFile);
-        }
-
-        if (includeDmesg) {
-            File tempDmsgFile = SaveLogHelper.saveTemporaryFile(this,
-                    SaveLogHelper.TEMP_DMESG_FILENAME, null, DmesgHelper.getDmsg());
-            files.add(tempDmsgFile);
         }
 
         File zipFile = SaveLogHelper.saveZipFile(SaveLogHelper.createLogFilename(true), files);

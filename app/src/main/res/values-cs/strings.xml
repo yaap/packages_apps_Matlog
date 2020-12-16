@@ -119,7 +119,6 @@
     <string name="search">Hledat</string>
     <string name="scrubber">Vynechat citlivé informace</string>
     <string name="scrubber_summary">Vymazat citlivé informace jako webové URL, telefonní čísla nebo e-maily</string>
-    <string name="text_include_dmesg">Zahrnout protokoly jádra</string>
     <string name="save_log_zip">Uložit zip</string>
     <string name="share_log">Sdílet</string>
     <string name="channel_name">Záznam oznámení</string>

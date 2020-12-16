@@ -119,7 +119,6 @@
     <string name="search">Поиск</string>
     <string name="scrubber">Оставить конфиденциальную информацию</string>
     <string name="scrubber_summary">Не показывать конфиденциальную информацию, такую как веб-адреса, номера телефонов или адреса электронной почты</string>
-    <string name="text_include_dmesg">Включить журнал ядра</string>
     <string name="save_log_zip">Сохранить zip</string>
     <string name="share_log">Поделиться</string>
     <string name="channel_name">Уведомление о записи</string>

@@ -110,7 +110,6 @@
     <string name="search">検索</string>
     <string name="scrubber">機密情報を省略</string>
     <string name="scrubber_summary">ウェブ URL、電話番号、メールなどの機密情報を省略する</string>
-    <string name="text_include_dmesg">カーネルログを含める</string>
     <string name="save_log_zip">ZIP を保存</string>
     <string name="share_log">共有</string>
     <string name="channel_name">通知を記録</string>

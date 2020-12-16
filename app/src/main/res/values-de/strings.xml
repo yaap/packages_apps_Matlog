@@ -113,7 +113,6 @@
     <string name="search">Suche</string>
     <string name="scrubber">Empfindliche Informationen weglassen</string>
     <string name="scrubber_summary">Vertrauliche Informationen wie Weburls, Telefonnummern oder E-Mails auslassen</string>
-    <string name="text_include_dmesg">Kernellog einbeziehen</string>
     <string name="save_log_zip">Zip speichern</string>
     <string name="share_log">Teilen</string>
     <string name="channel_name">Benachrichtigung aufnehmen</string>
