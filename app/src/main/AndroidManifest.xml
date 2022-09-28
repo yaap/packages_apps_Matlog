@@ -83,6 +83,11 @@
         </receiver>
 
         <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:replace="android:authorities"/>
+
+        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="org.omnirom.logcat.provider"
             android:exported="false"
